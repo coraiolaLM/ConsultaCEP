@@ -1,0 +1,30 @@
+Título da Atividade: 
+Explorando a API Fetch para Consulta de CEP e Local Storage
+
+Descrição da Atividade:
+Nesta atividade, você terá a oportunidade de aplicar seus conhecimentos em HTML, CSS e JavaScript para criar uma aplicação web interativa. Seu objetivo é desenvolver uma tela onde o usuário possa inserir um CEP e, ao clicar em um botão, consultar uma API de CEP para obter os dados do endereço correspondente e exibi-los na tela. Além disso, você também deve implementar a funcionalidade de salvar os dados do endereço no Local Storage do navegador.
+
+Instruções:
+1. Desenvolva uma interface HTML com CSS que inclua:
+   - Um campo de entrada para o usuário digitar o CEP.
+   - Um botão para acionar a consulta à API de CEP.
+   - Uma área na qual os dados do endereço serão exibidos após a consulta.
+   - Um botão para salvar os dados do endereço no Local Storage.
+
+2. Utilize JavaScript para:
+   - Capturar o evento de clique no botão de consulta à API de CEP.
+   - Fazer uma requisição utilizando a API Fetch para a API de CEP (por exemplo, ViaCEP).
+   - Tratar a resposta da API e exibir os dados do endereço na área designada.
+   - Implementar a funcionalidade de salvar os dados do endereço no Local Storage ao clicar no botão correspondente.
+
+3. Certifique-se de que, ao recarregar a página, a lista de endereços salvos no Local Storage seja exibida.
+
+Recursos:
+- Documentação da API Fetch: [Inserir link para a documentação da API Fetch]
+- Documentação da API de CEP (exemplo: ViaCEP): [Inserir link para a documentação da API de CEP utilizada]
+- Material de referência sobre Local Storage: [Inserir link para material de referência sobre Local Storage]
+
+Observações:
+- Priorize uma interface limpa e amigável para uma melhor experiência do usuário.
+- Teste sua aplicação para garantir seu funcionamento correto em diferentes cenários.
+- Esteja preparado para compartilhar seu código e explicar suas decisões durante a revisão da atividade.

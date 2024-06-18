@@ -1,0 +1,90 @@
+body {
+    background-color: #F1F0CC;
+    font-size: 24px;
+    color: #F1F0CC;
+  }
+.titulo{
+    font-size: 28px;
+    text-align: center;
+    color: #0EAD69;
+}
+.section {
+    text-align: center;
+    align-items: center;
+    border: 4px solid #0EAD69;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+  }
+.caixaImput{
+    background-color: #F1F0CC;
+    height: 20px;
+    right: auto;
+    text-align: center;
+    border: 2px solid#0EAD69;
+}
+.botão{
+    color: #F1F0CC;
+    background-color: #0EAD69;
+    text-align: center;
+    border: 3px solid #F1F0CC;
+    cursor: pointer;
+}
+.table{
+    width: 100%;
+    margin-bottom : .5em;
+    table-layout: fixed;
+    text-align: center;
+}
+
+.thead{
+    background-color: #0EAD69;
+    border: 4px solid #fff;
+}
+#tabela{
+    background-color: #0EAD69;
+}
+td, th {  
+    padding: .4em;
+    margin: 0;
+    text-align: center;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #0EAD69;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+=    border-radius: 10px;
+}
+.h3{
+    font-size: 12px;
+}
+
+.close {
+    float: right;
+}
+.iconecancela{
+    height: auto;
+    width: 16px;
+}
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

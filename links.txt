@@ -1,0 +1,8 @@
+Links:
+
+API FETCH - https://developer.mozilla.org/pt-BR/docs/Web/API/fetch
+PROMISE - https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Promise
+
+Uso no W3S
+FETCH - https://www.w3schools.com/jsref/api_fetch.asp
+

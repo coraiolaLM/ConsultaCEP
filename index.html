@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <section class="section">
+    <div>
+        <h4 class="titulo">➜Consultas de CEP</h1>
+
+        <input class="caixaImput" type="text" name="cep" id="cep" placeholder="Consultar Cep" onkeydown="if(event.key === 'Enter') consultaCep()">
+        <button onclick="consultaCep()" class="botão">Consultar</button>
+        <button onclick="apagartodoscep()" class="botão">Limpar Tabela</button>
+    </div>
+    <br>
+<table class="table">
+    <thead class="thead">
+        <tr>
+        <th>Cep</th>
+        <th>Rua</th>
+        <th>Bairro</th>
+        <th>Cidade</th>
+        <th>Estado</th>
+        <th>IBGE</th>
+        <th>DDD</th>
+        <th>Siafi</th>
+        <th>Ação</th>
+        </tr>
+    </thead>
+    <tbody id="tabela"></tbody>
+</table>
+<div id="climateModal" class="modal">
+    <div class="modal-content">
+        <span class="close"><img src="circle-x.svg" alt="cancelaclima" class="iconecancela"></span>
+        <div id="climateInfo">
+            <!-- As informações do clima serão preenchidas pelo JavaScript -->
+        </div>
+    </div>
+</div>
+
+    </section>  
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>    
+    <script src="app.js"></script>    
+
+</body>
+</html>
