@@ -124,54 +124,67 @@ const apagartodoscep = () => {
     imprimirCepsSalvos()
 }
 
-const consultarClima = (localidade) => {
-    //recebe nome da cidade como parametro, localiza ids html e cria variaveis ligadas a esses ids, consulta a api de clima, transforma a responsta
-    //em json, depois puxa informação do json para e confere se os dados estão disponiveis, formatei a data para ficar correta ao brasileiro
-    //é depois imprimi as informações formatadas entregues pela api.
-    const localidadeFormatada = localidade.replace(/\s/g, '%20')//caso de cidade com nome composto
+const consultarClima = async (localidade) => {
+    const modal = document.getElementById("climateModal");
+    const climateInfo = document.getElementById("climateInfo");
 
-    const modal = document.getElementById("climateModal")
-    const climateInfo = document.getElementById("climateInfo")
+    try {
+        // Primeiro, converter cidade para latitude e longitude usando Nominatim (gratuito)
+        const geoResponse = await fetch(`https://nominatim.openstreetmap.org/search?city=${localidade}&country=Brazil&format=json`);
+        const geoData = await geoResponse.json();
 
-    fetch(`https://data.api.xweather.com/conditions/summary/${localidadeFormatada},br?format=json&fields=loc,periods.dateTimeISO,periods.temp,periods.humidity,periods.weather&client_id=WnzuhH99bQa9SuNOZXAsF&client_secret=oR4m77XPGARV3qIlIBDhnuqwIDVuvPUg9gNSkdQ7`)
-        .then(response => response.json())
-        .then(data => {
-            const resposta = data.response[0] 
-            if (resposta && resposta.periods && resposta.periods.length > 0) {
-                const periodo = resposta.periods[0]
-                const dataISO = new Date(periodo.dateTimeISO)
-                const dataFormatada = dataISO.toLocaleDateString('pt-BR') 
-
-                climateInfo.innerHTML = `
-                    <h1>${localidade}</h1>
-                    <p>Data: ${dataFormatada}</p>
-                    <p>Temperatura: Min: ${periodo.temp.minC}°C - Max: ${periodo.temp.maxC}°C</p>
-                    <p>Umidade: Min: ${periodo.humidity.min}% - Max: ${periodo.humidity.max}%</p>
-                    <p>Clima: ${traduzirClima(periodo.weather.primary)}</p>
-                    <h3 class="h3">*aproximado, afinal há diferenças climaticas por regiões dependendo da cidade</h3>
-                    `
-            } else {
-                climateInfo.innerHTML = `<p>Não foi possível obter dados do clima para a localidade ${localidade}.</p>`
-            }
-            modal.style.display = "block"
-        })
-        .catch(error => {
-            console.error("Erro ao buscar dados do clima:", error)
-            alert("Erro ao buscar dados do clima, tente novamente mais tarde.")
-        })
-
-        //botão pra minimizar model
-    const closeBtn = document.getElementsByClassName("close")[0]
-    closeBtn.onclick = function() {
-        modal.style.display = "none"
-    }
-        //evento pra minimizar model caso usuario clicar fora da model
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none"
+        if (!geoData.length) {
+            climateInfo.innerHTML = `<p>Localidade "${localidade}" não encontrada.</p>`;
+            modal.style.display = "block";
+            return;
         }
+
+        const { lat, lon, display_name } = geoData[0];
+
+        // Agora buscar dados climáticos com Open-Meteo
+        const climaResponse = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,relative_humidity_2m&timezone=auto`);
+        const climaData = await climaResponse.json();
+
+        // Pegar o primeiro dado disponível do dia atual
+        const agora = new Date();
+        const horaAtual = agora.getHours();
+        const indiceHora = climaData.hourly.time.findIndex(t => t.startsWith(agora.toISOString().slice(0, 10)) && parseInt(t.split("T")[1]) === horaAtual);
+
+        if (indiceHora === -1) {
+            climateInfo.innerHTML = `<p>Dados climáticos indisponíveis para ${localidade}.</p>`;
+        } else {
+            const temperatura = climaData.hourly.temperature_2m[indiceHora];
+            const umidade = climaData.hourly.relative_humidity_2m[indiceHora];
+            const dataFormatada = agora.toLocaleDateString('pt-BR');
+
+            climateInfo.innerHTML = `
+                <h1>${display_name}</h1>
+                <p>Data: ${dataFormatada}</p>
+                <p>Temperatura: ${temperatura}°C</p>
+                <p>Umidade: ${umidade}%</p>
+                <h3 class="h3">*dados estimados para a hora atual</h3>
+            `;
+        }
+
+        modal.style.display = "block";
+    } catch (error) {
+        console.error("Erro ao buscar dados do clima:", error);
+        alert("Erro ao buscar dados do clima, tente novamente mais tarde.");
     }
-}
+
+    // Botão para fechar o modal
+    const closeBtn = document.getElementsByClassName("close")[0];
+    closeBtn.onclick = function () {
+        modal.style.display = "none";
+    };
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
+};
+
 const traduzirClima = (fraseEmIngles) => {
     //traduz clima entregue pela api. ja que a api é ingles
     const traducoes = {
