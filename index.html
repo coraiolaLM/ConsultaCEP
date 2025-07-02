@@ -1,50 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consultas</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Consulta de CEP</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" href="/img/lupa.png" type="image/png">
 </head>
 <body>
-
     <section class="section">
-    <div>
-        <h4 class="titulo">➜Consultas de CEP</h1>
-
-        <input class="caixaImput" type="text" name="cep" id="cep" placeholder="Consultar Cep" onkeydown="if(event.key === 'Enter') consultaCep()">
-        <button onclick="consultaCep()" class="botão">Consultar</button>
-        <button onclick="apagartodoscep()" class="botão">Limpar Tabela</button>
-    </div>
-    <br>
-<table class="table">
-    <thead class="thead">
-        <tr>
-        <th>Cep</th>
-        <th>Rua</th>
-        <th>Bairro</th>
-        <th>Cidade</th>
-        <th>Estado</th>
-        <th>IBGE</th>
-        <th>DDD</th>
-        <th>Siafi</th>
-        <th>Ação</th>
-        </tr>
-    </thead>
-    <tbody id="tabela"></tbody>
-</table>
-<div id="climateModal" class="modal">
-    <div class="modal-content">
-        <span class="close"><img src="circle-x.svg" alt="cancelaclima" class="iconecancela"></span>
-        <div id="climateInfo">
-            <!-- As informações do clima serão preenchidas pelo JavaScript -->
+        <div class="header">
+            <h1 class="titulo">Consultas de CEP</h1>
+            
+            <div class="input-group">
+                <input class="caixaImput" type="text" name="cep" id="cep" placeholder="Digite o CEP" onkeydown="if(event.key === 'Enter') consultaCep()">
+                <button onclick="consultaCep()" class="botão consultar">Consultar</button>
+                <button onclick="apagartodoscep()" class="botão limpar">Limpar Tabela</button>
+                <button onclick="limparconsultas()" class="botão limpar">Limpar Consultas</button>
+            </div>
         </div>
-    </div>
-</div>
 
-    </section>  
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>    
-    <script src="app.js"></script>    
+        <div class="table-responsive">
+            <table class="table">
+                <tbody id="tabela"></tbody>
+            </table>
+        </div>
 
+        <div id="climateModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Informações Climáticas</h2>
+                    <span class="close">&times;</span>
+                </div>
+                <div id="climateInfo" class="climate-card">
+                    <!-- Conteúdo dinâmico será inserido aqui -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>
